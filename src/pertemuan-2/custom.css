@@ -1,0 +1,191 @@
+/* styling untuk keseluruhan halaman - Tema Pastel Elegan */
+body {
+    font-family: 'Quicksand', 'Poppins', 'Segoe UI', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+    color: #5a4a5c;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.card {
+    max-width: 700px;
+    margin: 30px auto;
+    background: #fff7fb;
+    padding: 30px;
+    border-radius: 24px;
+    border: 1px solid #e6cfe6;
+    box-shadow: 0 20px 40px rgba(180, 150, 180, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+/* Judul Utama */
+h1 {
+    text-align: center;
+    margin: 0 0 5px 0;
+    padding: 0;
+    color: #7a5c7a;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    text-shadow: 2px 2px 4px rgba(200, 180, 200, 0.2);
+}
+
+/* Slogan 1 */
+.slogan-1 {
+    text-align: center;
+    margin: 0 0 5px 0;
+    padding: 0;
+    font-size: 1rem;
+    color: #c084c0;
+    font-weight: 600;
+}
+
+/* Slogan 2  */
+.slogan-2 {
+    text-align: center;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+    color: #a06ba0;
+}
+
+/* Garis pemisah */
+.section-divider {
+    border: none;
+    height: 4px;
+    background: linear-gradient(90deg, #fbc2eb, #a6c1ee, #fddde6, #a6c1ee, #fbc2eb);
+    margin: 25px 0;
+    border-radius: 4px;
+}
+
+/* Judul Biodata Saya */
+h2 {
+    text-align: center;
+    color: #7a5c7a;
+    margin: 10px 0 25px 0;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    position: relative;
+}
+
+/* Container 2 kolom */
+.biodata-container {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Bagian Foto Profil - BORDER PASTEL */
+.foto-profile {
+    flex: 1;
+    text-align: center;
+    min-width: 150px;
+}
+
+.foto-persegi {
+    width: 210px;
+    height: 310px;
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    margin: 0 auto;
+    border: 4px solid #e6cfe6;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(180, 150, 180, 0.2);
+    border-radius: 16px;
+}
+
+.foto-persegi img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Bagian Info Biodata */
+.info-biodata {
+    flex: 1.5;
+    min-width: 250px;
+    background: #ffffff;
+    padding: 18px 22px;
+    border-radius: 20px;
+    box-shadow: 0 6px 16px rgba(180, 150, 180, 0.1);
+    border-left: 5px solid #c084c0;
+    border-right: 1px solid #e6cfe6;
+    border-top: 1px solid #e6cfe6;
+    border-bottom: 1px solid #e6cfe6;
+}
+
+.info-biodata p {
+    margin: 10px 0;
+    line-height: 1.5;
+    color: #5a4a5c;
+}
+
+.info-biodata strong {
+    display: inline-block;
+    width: 125px;
+    color: #a06ba0;
+    font-weight: 800;
+}
+
+/* Quote Section */
+.quote {
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 20px;
+    margin: 20px 0;
+    text-align: center;
+    border: 2px solid #e6cfe6;
+    box-shadow: 0 8px 20px rgba(180, 150, 180, 0.1);
+    position: relative;
+}
+
+.quote:before {
+    content: '"';
+    font-size: 60px;
+    color: #c084c0;
+    opacity: 0.3;
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-family: serif;
+}
+
+.quote-text {
+    font-style: italic;
+    font-size: 1rem;
+    margin: 10px 0;
+    line-height: 1.6;
+    color: #5a4a5c;
+    font-weight: 500;
+}
+
+.quote-author {
+    margin: 15px 0 0 0;
+    font-weight: 800;
+    color: #c084c0;
+    font-size: 0.9rem;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #c084c0;
+    font-weight: 500;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+hr {
+    border: none;
+    border-top: 2px solid #e6cfe6;
+    margin: 20px 0;
+}
