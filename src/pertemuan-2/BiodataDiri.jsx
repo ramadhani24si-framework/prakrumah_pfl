@@ -21,8 +21,6 @@ export default function BiodataDiri() {
         </div>
     );
 }
-
-
 function Greating() {
     return (
         <div>
@@ -30,8 +28,6 @@ function Greating() {
         </div>
     );
 }
-
-
 function FotoProfile() {
     return (
         <div className="foto-profile">
@@ -44,8 +40,6 @@ function FotoProfile() {
         </div>
     );
 }
-
-
 function InfoBiodata() {
     return (
         <div className="info-biodata">
@@ -60,8 +54,6 @@ function InfoBiodata() {
         </div>
     );
 }
-
-
 function QuoteText() {
     const text = "Every day is a new opportunity to become a better version of yourself.";
     const text2 = "- Suci Ramadhani -";
