@@ -1,33 +1,48 @@
+import React from 'react';
+
+/* Catatan: Pastikan CSS yang Anda berikan di atas sudah dimasukkan 
+  ke dalam file CSS (misalnya App.css) dan di-import ke file ini.
+*/
+
 export default function BiodataDiri() {
     return (
-        <div>
+        <div className="card">
             <h1>Pemrograman Framework Lanjutan</h1>
             <p className="slogan-1">Selamat Belajar ReactJS</p>
+            
+            {/* Sekarang fungsi Greating akan menghasilkan output yang sama persis */}
             <Greating />
-           
+            
             {/* Garis pemisah */}
             <hr className="section-divider" />
-           
+            
             <h2>📋 BIODATA SAYA</h2>
-           
-         
+            
             <div className="biodata-container">
                 <FotoProfile />
                 <InfoBiodata />
             </div>
-           
+            
             {/* Quote */}
             <QuoteText />
+            
+            <footer>
+                <p>© 2024 - Suci Ramadhani</p>
+                <p>Dibuat dengan ReactJS</p>
+            </footer>
         </div>
     );
 }
+
 function Greating() {
     return (
         <div>
-            <p className="slogan-2"><strong>Semoga Belajar ReactJS Menyenangkan</strong></p>
+            {/* className diubah ke slogan-1 dan tag strong dihapus agar seragam */}
+            <p className="slogan-1">Semoga Belajar ReactJS Menyenangkan</p>
         </div>
     );
 }
+
 function FotoProfile() {
     return (
         <div className="foto-profile">
@@ -40,6 +55,7 @@ function FotoProfile() {
         </div>
     );
 }
+
 function InfoBiodata() {
     return (
         <div className="info-biodata">
@@ -54,10 +70,10 @@ function InfoBiodata() {
         </div>
     );
 }
+
 function QuoteText() {
     const text = "Every day is a new opportunity to become a better version of yourself.";
     const text2 = "- Suci Ramadhani -";
-
 
     return (
         <div className="quote">
@@ -66,4 +82,3 @@ function QuoteText() {
         </div>
     );
 }
-
