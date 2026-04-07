@@ -3,6 +3,7 @@ export default function Container({ children }) {
         <div>
           {children}
           <hr />
+          {/* footer */}
           <footer>
             <p>© 2026 - Politeknik Caltex Riau</p>
             <p>Dibangun dengan ReactJS | Pemrograman Framework Lanjutan</p>
