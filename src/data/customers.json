@@ -1,0 +1,154 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "name": "Aisyah Putri",
+      "phone": "081234567890",
+      "email": "aisyah@example.com",
+      "totalSpent": 1250000,
+      "orders": 8,
+      "points": 1250,
+      "joinDate": "2024-01-15"
+    },
+    {
+      "id": 2,
+      "name": "Nadia Fitri",
+      "phone": "081234567891",
+      "email": "nadia@example.com",
+      "totalSpent": 890000,
+      "orders": 6,
+      "points": 890,
+      "joinDate": "2024-02-20"
+    },
+    {
+      "id": 3,
+      "name": "Zahra Kirana",
+      "phone": "081234567892",
+      "email": "zahra@example.com",
+      "totalSpent": 2100000,
+      "orders": 12,
+      "points": 2100,
+      "joinDate": "2023-12-10"
+    },
+    {
+      "id": 4,
+      "name": "Siti Aminah",
+      "phone": "081234567893",
+      "email": "aminah@example.com",
+      "totalSpent": 450000,
+      "orders": 3,
+      "points": 450,
+      "joinDate": "2024-03-05"
+    },
+    {
+      "id": 5,
+      "name": "Rina Wati",
+      "phone": "081234567894",
+      "email": "rina@example.com",
+      "totalSpent": 670000,
+      "orders": 5,
+      "points": 670,
+      "joinDate": "2024-01-25"
+    },
+    {
+      "id": 6,
+      "name": "Lina Marlina",
+      "phone": "081234567895",
+      "email": "lina@example.com",
+      "totalSpent": 890000,
+      "orders": 7,
+      "points": 890,
+      "joinDate": "2024-02-14"
+    },
+    {
+      "id": 7,
+      "name": "Dewi Sartika",
+      "phone": "081234567896",
+      "email": "dewi@example.com",
+      "totalSpent": 340000,
+      "orders": 2,
+      "points": 340,
+      "joinDate": "2024-04-01"
+    },
+    {
+      "id": 8,
+      "name": "Rani Maharani",
+      "phone": "081234567897",
+      "email": "rani@example.com",
+      "totalSpent": 1560000,
+      "orders": 9,
+      "points": 1560,
+      "joinDate": "2023-11-20"
+    },
+    {
+      "id": 9,
+      "name": "Mega Sari",
+      "phone": "081234567898",
+      "email": "mega@example.com",
+      "totalSpent": 230000,
+      "orders": 2,
+      "points": 230,
+      "joinDate": "2024-03-10"
+    },
+    {
+      "id": 10,
+      "name": "Putri Amanda",
+      "phone": "081234567899",
+      "email": "putri@example.com",
+      "totalSpent": 890000,
+      "orders": 6,
+      "points": 890,
+      "joinDate": "2024-01-30"
+    },
+    {
+      "id": 11,
+      "name": "Anisa Rahma",
+      "phone": "081234567800",
+      "email": "anisa@example.com",
+      "totalSpent": 450000,
+      "orders": 4,
+      "points": 450,
+      "joinDate": "2024-02-28"
+    },
+    {
+      "id": 12,
+      "name": "Salsabila",
+      "phone": "081234567801",
+      "email": "salsa@example.com",
+      "totalSpent": 230000,
+      "orders": 2,
+      "points": 230,
+      "joinDate": "2024-03-15"
+    },
+    {
+      "id": 13,
+      "name": "Fathia Izzati",
+      "phone": "081234567802",
+      "email": "fathia@example.com",
+      "totalSpent": 670000,
+      "orders": 5,
+      "points": 670,
+      "joinDate": "2024-01-10"
+    },
+    {
+      "id": 14,
+      "name": "Hana Aulia",
+      "phone": "081234567803",
+      "email": "hana@example.com",
+      "totalSpent": 890000,
+      "orders": 7,
+      "points": 890,
+      "joinDate": "2023-12-05"
+    },
+    {
+      "id": 15,
+      "name": "Nurul Hidayah",
+      "phone": "081234567804",
+      "email": "nurul@example.com",
+      "totalSpent": 1230000,
+      "orders": 8,
+      "points": 1230,
+      "joinDate": "2024-01-18"
+    }
+  ]
+}

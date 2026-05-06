@@ -1,0 +1,381 @@
+[
+  {
+    "id": 1,
+    "nama": "Fullstack Web Development",
+    "kategori": "Web Development",
+    "level": "Pemula",
+    "harga": 1500000,
+    "rating": 4.8,
+    "gambar": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400",
+    "detail": {
+      "mentor": "Budi Raharjo",
+      "jamTersedia": "09.00 - 17.00",
+      "kurikulum": ["React JS", "NodeJS", "Tailwind CSS"]
+    },
+    "tags": ["Popular", "Bestseller", "Career"]
+  },
+  {
+    "id": 2,
+    "nama": "Mobile App dengan Flutter",
+    "kategori": "Mobile Dev",
+    "level": "Menengah",
+    "harga": 2000000,
+    "rating": 4.9,
+    "gambar": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400",
+    "detail": {
+      "mentor": "Siti Aminah",
+      "jamTersedia": "13.00 - 20.00",
+      "kurikulum": ["Flutter", "Dart", "Firebase"]
+    },
+    "tags": ["Mobile", "Flutter", "Android"]
+  },
+
+  {
+    "id": 3,
+    "nama": "Cyber Security Essentials",
+    "kategori": "Security",
+    "level": "Lanjut",
+    "harga": 2500000,
+    "rating": 4.9,
+    "gambar": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400",
+    "detail": {
+      "mentor": "Eko Kurniawan",
+      "jamTersedia": "19.00 - 22.00",
+      "kurikulum": ["Ethical Hacking", "Linux", "Networking"]
+    },
+    "tags": ["Security", "Linux", "Pro"]
+  },
+  {
+    "id": 4,
+    "nama": "DevOps Engineering",
+    "kategori": "Cloud",
+    "level": "Menengah",
+    "harga": 3000000,
+    "rating": 4.8,
+    "gambar": "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=400",
+    "detail": {
+      "mentor": "Rizky Pratama",
+      "jamTersedia": "10.00 - 16.00",
+      "kurikulum": ["Docker", "Kubernetes", "AWS"]
+    },
+    "tags": ["Cloud", "DevOps", "Infrastructure"]
+  },
+  {
+    "id": 5,
+    "nama": "Laravel Backend Expert",
+    "kategori": "Web Development",
+    "level": "Menengah",
+    "harga": 1200000,
+    "rating": 4.7,
+    "gambar": "https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?w=400",
+    "detail": {
+      "mentor": "Hendra Setiawan",
+      "jamTersedia": "13.00 - 17.00",
+      "kurikulum": ["PHP", "Laravel 11", "MySQL"]
+    },
+    "tags": ["Backend", "PHP", "Laravel"]
+  },
+  {
+    "id": 6,
+    "nama": "React Native Mobile",
+    "kategori": "Mobile Dev",
+    "level": "Menengah",
+    "harga": 1950000,
+    "rating": 4.5,
+    "gambar": "https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=400",
+    "detail": {
+      "mentor": "Gita Permata",
+      "jamTersedia": "09.00 - 15.00",
+      "kurikulum": ["JavaScript", "Expo", "Redux"]
+    },
+    "tags": ["Mobile", "JS", "React"]
+  },
+ 
+  {
+    "id": 7,
+    "nama": "Digital Marketing Pro",
+    "kategori": "Marketing",
+    "level": "Pemula",
+    "harga": 500000,
+    "rating": 4.4,
+    "gambar": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400",
+    "detail": {
+      "mentor": "Jessica Mila",
+      "jamTersedia": "14.00 - 16.00",
+      "kurikulum": ["SEO", "FB Ads", "Copywriting"]
+    },
+    "tags": ["Ads", "Marketing", "Business"]
+  },
+  {
+    "id": 8,
+    "nama": "Golang For Microservices",
+    "kategori": "Web Development",
+    "level": "Lanjut",
+    "harga": 2800000,
+    "rating": 4.9,
+    "gambar": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400",
+    "detail": {
+      "mentor": "Doni Salman",
+      "jamTersedia": "20.00 - 22.00",
+      "kurikulum": ["Go Language", "gRPC", "Redis"]
+    },
+    "tags": ["Microservices", "Go", "Performance"]
+  },
+  {
+    "id": 9,
+    "nama": "Game Dev with Unity",
+    "kategori": "Game Dev",
+    "level": "Menengah",
+    "harga": 2100000,
+    "rating": 4.8,
+    "gambar": "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400",
+    "detail": {
+      "mentor": "Kevin Sanjaya",
+      "jamTersedia": "10.00 - 14.00",
+      "kurikulum": ["C#", "Unity Engine", "3D Modeling"]
+    },
+    "tags": ["Game", "Unity", "C#"]
+  },
+  {
+    "id": 10,
+    "nama": "WordPress Development",
+    "kategori": "Web Development",
+    "level": "Pemula",
+    "harga": 700000,
+    "rating": 4.3,
+    "gambar": "https://images.unsplash.com/photo-1561736778-92e52a7769ef?w=400",
+    "detail": {
+      "mentor": "Santi Larasati",
+      "jamTersedia": "09.00 - 12.00",
+      "kurikulum": ["Elementor", "PHP", "Themes"]
+    },
+    "tags": ["WP", "Easy", "CMS"]
+  },
+  {
+    "id": 11,
+    "nama": "Excel for Data Analyst",
+    "kategori": "Data Science",
+    "level": "Pemula",
+    "harga": 450000,
+    "rating": 4.6,
+    "gambar": "https://images.unsplash.com/photo-1543286386-713bdd548da4?w=400",
+    "detail": {
+      "mentor": "Maya Putri",
+      "jamTersedia": "13.00 - 15.00",
+      "kurikulum": ["Pivot Table", "VLOOKUP", "Power Query"]
+    },
+    "tags": ["Excel", "Office", "Data"]
+  },
+  {
+    "id": 12,
+    "nama": "AWS Cloud Architect",
+    "kategori": "Cloud",
+    "level": "Lanjut",
+    "harga": 4000000,
+    "rating": 5.0,
+    "gambar": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400",
+    "detail": {
+      "mentor": "Rahmat Hidayat",
+      "jamTersedia": "09.00 - 17.00",
+      "kurikulum": ["EC2", "S3", "Lambda"]
+    },
+    "tags": ["AWS", "Elite", "Cloud"]
+  },
+  {
+    "id": 13,
+    "nama": "Swift iOS Development",
+    "kategori": "Mobile Dev",
+    "level": "Lanjut",
+    "harga": 3200000,
+    "rating": 4.7,
+    "gambar": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400",
+    "detail": {
+      "mentor": "Fatur Rahman",
+      "jamTersedia": "10.00 - 16.00",
+      "kurikulum": ["SwiftUI", "Xcode", "App Store"]
+    },
+    "tags": ["iOS", "Apple", "Swift"]
+  },
+  {
+    "id": 14,
+    "nama": "Ethical Hacking 101",
+    "kategori": "Security",
+    "level": "Pemula",
+    "harga": 1600000,
+    "rating": 4.5,
+    "gambar": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400",
+    "detail": {
+      "mentor": "Tio Nugroho",
+      "jamTersedia": "19.00 - 21.00",
+      "kurikulum": ["Metasploit", "Nmap", "Wireshark"]
+    },
+    "tags": ["Hacker", "Safety", "Linux"]
+  },
+  {
+    "id": 15,
+    "nama": "Motion Graphic Figma",
+    "kategori": "Design",
+    "level": "Menengah",
+    "harga": 950000,
+    "rating": 4.8,
+    "gambar": "https://images.unsplash.com/photo-1558655146-d09347e92766?w=400",
+    "detail": {
+      "mentor": "Anisa Rahma",
+      "jamTersedia": "15.00 - 18.00",
+      "kurikulum": ["Smart Animate", "Components", "Lottie"]
+    },
+    "tags": ["Motion", "Figma", "Art"]
+  },
+  {
+    "id": 16,
+    "nama": "Python Backend with Django",
+    "kategori": "Web Development",
+    "level": "Menengah",
+    "harga": 1400000,
+    "rating": 4.7,
+    "gambar": "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400",
+    "detail": {
+      "mentor": "Bambang Pamungkas",
+      "jamTersedia": "08.00 - 12.00",
+      "kurikulum": ["Django", "Rest API", "PostgreSQL"]
+    },
+    "tags": ["Python", "Django", "Backend"]
+  },
+  {
+    "id": 17,
+    "nama": "Vue JS Composition API",
+    "kategori": "Web Development",
+    "level": "Menengah",
+    "harga": 1100000,
+    "rating": 4.6,
+    "gambar": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=400",
+    "detail": {
+      "mentor": "Dedi Corbuzier",
+      "jamTersedia": "11.00 - 14.00",
+      "kurikulum": ["Vue 3", "Pinia", "Vite"]
+    },
+    "tags": ["Vue", "Frontend", "Fast"]
+  },
+  {
+    "id": 18,
+    "nama": "Blockchain Development",
+    "kategori": "Security",
+    "level": "Lanjut",
+    "harga": 4500000,
+    "rating": 4.9,
+    "gambar": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400",
+    "detail": {
+      "mentor": "Vitalik Buterin",
+      "jamTersedia": "09.00 - 12.00",
+      "kurikulum": ["Solidity", "Ethereum", "Smart Contracts"]
+    },
+    "tags": ["Crypto", "Web3", "Tech"]
+  },
+  {
+    "id": 19,
+    "nama": "Product Management",
+    "kategori": "Business",
+    "level": "Pemula",
+    "harga": 1350000,
+    "rating": 4.5,
+    "gambar": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400",
+    "detail": {
+      "mentor": "Sarah Wijaya",
+      "jamTersedia": "10.00 - 15.00",
+      "kurikulum": ["Agile", "Scrum", "Product Roadmap"]
+    },
+    "tags": ["Management", "Startup", "Career"]
+  },
+  {
+    "id": 20,
+    "nama": "Quality Assurance (QA)",
+    "kategori": "Web Development",
+    "level": "Menengah",
+    "harga": 1100000,
+    "rating": 4.6,
+    "gambar": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400",
+    "detail": {
+      "mentor": "Rian Ardianto",
+      "jamTersedia": "08.00 - 12.00",
+      "kurikulum": ["Selenium", "Manual Testing", "API Testing"]
+    },
+    "tags": ["QA", "Testing", "Code"]
+  },
+ 
+  {
+    "id": 21,
+    "nama": "Copywriting for Tech",
+    "kategori": "Marketing",
+    "level": "Pemula",
+    "harga": 650000,
+    "rating": 4.4,
+    "gambar": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400",
+    "detail": {
+      "mentor": "Rara Sekar",
+      "jamTersedia": "15.00 - 17.00",
+      "kurikulum": ["UX Writing", "Selling", "Storytelling"]
+    },
+    "tags": ["Writing", "Sales", "Tech"]
+  },
+  {
+    "id": 22,
+    "nama": "Advanced CSS & Animation",
+    "kategori": "Design",
+    "level": "Menengah",
+    "harga": 800000,
+    "rating": 4.9,
+    "gambar": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=400",
+    "detail": {
+      "mentor": "Zunaidi",
+      "jamTersedia": "19.00 - 21.00",
+      "kurikulum": ["GSAP", "ThreeJS", "SVG Animation"]
+    },
+    "tags": ["CSS", "WebArt", "Modern"]
+  },
+  {
+    "id": 23,
+    "nama": "Shopify Store Expert",
+    "kategori": "Business",
+    "level": "Pemula",
+    "harga": 1200000,
+    "rating": 4.3,
+    "gambar": "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=400",
+    "detail": {
+      "mentor": "Fandi Ahmad",
+      "jamTersedia": "10.00 - 12.00",
+      "kurikulum": ["Dropshipping", "Shopify Liquid", "Payment"]
+    },
+    "tags": ["E-commerce", "Shopify", "Sales"]
+  },
+  {
+    "id": 24,
+    "nama": "Network Engineering CCNA",
+    "kategori": "Security",
+    "level": "Menengah",
+    "harga": 2400000,
+    "rating": 4.7,
+    "gambar": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400",
+    "detail": {
+      "mentor": "Agus Salim",
+      "jamTersedia": "08.00 - 14.00",
+      "kurikulum": ["Cisco", "Subnetting", "Routing"]
+    },
+    "tags": ["Networking", "Cisco", "IT"]
+  },
+  
+  {
+    "id": 25,
+    "nama": "Ruby on Rails Mastery",
+    "kategori": "Web Development",
+    "level": "Lanjut",
+    "harga": 2600000,
+    "rating": 4.6,
+    "gambar": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400",
+    "detail": {
+      "mentor": "Imron Rosyadi",
+      "jamTersedia": "09.00 - 12.00",
+      "kurikulum": ["Ruby", "MVC", "Hotwire"]
+    },
+    "tags": ["Backend", "Ruby", "Scale"]
+  }
+]

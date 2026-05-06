@@ -1,0 +1,149 @@
+{
+  "dashboardStats": {
+    "totalOrders": 1250,
+    "totalCustomers": 342,
+    "totalRevenue": 87500000,
+    "monthlyGrowth": {
+      "orders": 15,
+      "customers": 12,
+      "revenue": 18
+    }
+  },
+  "orders": [
+    {
+      "id": "ORD-001",
+      "customer": "Aisyah Putri",
+      "date": "2025-05-01",
+      "total": 125000,
+      "status": "Delivered",
+      "payment": "Paid",
+      "items": 2
+    },
+    {
+      "id": "ORD-002",
+      "customer": "Nadia Fitri",
+      "date": "2025-05-02",
+      "total": 280000,
+      "status": "Processing",
+      "payment": "Pending",
+      "items": 3
+    },
+    {
+      "id": "ORD-003",
+      "customer": "Zahra Kirana",
+      "date": "2025-05-03",
+      "total": 75000,
+      "status": "Shipped",
+      "payment": "Paid",
+      "items": 1
+    },
+    {
+      "id": "ORD-004",
+      "customer": "Siti Aminah",
+      "date": "2025-05-04",
+      "total": 180000,
+      "status": "Delivered",
+      "payment": "Paid",
+      "items": 2
+    },
+    {
+      "id": "ORD-005",
+      "customer": "Rina Wati",
+      "date": "2025-05-05",
+      "total": 95000,
+      "status": "Delivered",
+      "payment": "Paid",
+      "items": 1
+    },
+    {
+      "id": "ORD-006",
+      "customer": "Lina Marlina",
+      "date": "2025-05-06",
+      "total": 420000,
+      "status": "Processing",
+      "payment": "Paid",
+      "items": 4
+    },
+    {
+      "id": "ORD-007",
+      "customer": "Dewi Sartika",
+      "date": "2025-05-07",
+      "total": 150000,
+      "status": "Shipped",
+      "payment": "Paid",
+      "items": 2
+    },
+    {
+      "id": "ORD-008",
+      "customer": "Rani Maharani",
+      "date": "2025-05-08",
+      "total": 230000,
+      "status": "Delivered",
+      "payment": "Paid",
+      "items": 3
+    },
+    {
+      "id": "ORD-009",
+      "customer": "Mega Sari",
+      "date": "2025-05-09",
+      "total": 89000,
+      "status": "Cancelled",
+      "payment": "Refunded",
+      "items": 1
+    },
+    {
+      "id": "ORD-010",
+      "customer": "Putri Amanda",
+      "date": "2025-05-10",
+      "total": 345000,
+      "status": "Delivered",
+      "payment": "Paid",
+      "items": 4
+    },
+    {
+      "id": "ORD-011",
+      "customer": "Anisa Rahma",
+      "date": "2025-05-11",
+      "total": 120000,
+      "status": "Processing",
+      "payment": "Pending",
+      "items": 2
+    },
+    {
+      "id": "ORD-012",
+      "customer": "Salsabila",
+      "date": "2025-05-12",
+      "total": 67000,
+      "status": "Delivered",
+      "payment": "Paid",
+      "items": 1
+    },
+    {
+      "id": "ORD-013",
+      "customer": "Fathia Izzati",
+      "date": "2025-05-13",
+      "total": 510000,
+      "status": "Shipped",
+      "payment": "Paid",
+      "items": 5
+    },
+    {
+      "id": "ORD-014",
+      "customer": "Hana Aulia",
+      "date": "2025-05-14",
+      "total": 200000,
+      "status": "Delivered",
+      "payment": "Paid",
+      "items": 2
+    },
+    {
+      "id": "ORD-015",
+      "customer": "Nurul Hidayah",
+      "date": "2025-05-15",
+      "total": 165000,
+      "status": "Processing",
+      "payment": "Pending",
+      "items": 2
+    }
+  ]
+}
