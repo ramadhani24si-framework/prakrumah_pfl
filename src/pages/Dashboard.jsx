@@ -1,17 +1,29 @@
 import { useState, useEffect } from "react";
 import PageHeader from "../components/PageHeader";
-import { FaShoppingCart, FaUsers, FaBoxOpen, FaDollarSign, FaArrowUp } from "react-icons/fa";
+import { 
+  FaShoppingCart, 
+  FaUsers, 
+  FaBoxOpen, 
+  FaDollarSign, 
+  FaArrowUp,
+  FaStar,
+  FaTruck,
+  FaCheckCircle
+} from "react-icons/fa";
 import productsData from "../data/products.json";
 import ordersData from "../data/orders.json";
+import customersData from "../data/customers.json";
 
 export default function Dashboard() {
   const [products, setProducts] = useState([]);
-  const [stats, setStats] = useState(null);
+  const [orders, setOrders] = useState([]);
+  const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setProducts(productsData.products);
-    setStats(ordersData.dashboardStats);
+    setOrders(ordersData.orders);
+    setCustomers(customersData.customers);
     setLoading(false);
   }, []);
 
@@ -19,116 +31,91 @@ export default function Dashboard() {
     return (
       <div>
         <PageHeader title="Dashboard" breadcrumb="Overview" />
-        <div className="text-center py-16 bg-white rounded-xl shadow-md">
-          <p className="text-gray-500">Memuat data...</p>
+        <div className="text-center py-16 bg-white rounded-2xl shadow-sm">
+          <p className="text-gray-500">Loading...</p>
         </div>
       </div>
     );
   }
 
-  const totalStock = products.reduce((sum, p) => sum + p.stock, 0);
-  const totalSold = products.reduce((sum, p) => sum + p.sold, 0);
-  const lowStockCount = products.filter(p => p.stock < 5).length;
-  
-  const top5Products = [...products]
-    .sort((a, b) => b.sold - a.sold)
-    .slice(0, 5);
+  const stats = {
+    totalOrders: orders.length,
+    totalCustomers: customers.length,
+    totalProducts: products.length,
+    totalRevenue: orders.reduce((sum, o) => sum + o.total, 0),
+    totalStock: products.reduce((sum, p) => sum + p.stock, 0),
+    lowStockCount: products.filter(p => p.stock < 5).length,
+  };
+
+  const recentOrders = orders.slice(0, 5);
+  const topProducts = [...products].sort((a, b) => b.sold - a.sold).slice(0, 5);
+
+  const statCards = [
+    { title: "Total Orders", value: stats.totalOrders, icon: FaShoppingCart, color: "bg-pink", change: "+12%" },
+    { title: "Customers", value: stats.totalCustomers, icon: FaUsers, color: "bg-blue-500", change: "+8%" },
+    { title: "Products", value: stats.totalProducts, icon: FaBoxOpen, color: "bg-green-500", change: "+5%" },
+    { title: "Revenue", value: `Rp ${(stats.totalRevenue / 1000000).toFixed(1)}M`, icon: FaDollarSign, color: "bg-yellow-500", change: "+15%" },
+  ];
 
   return (
     <div>
-      <PageHeader title="Dashboard" breadcrumb="Overview" />
+      <PageHeader title="Welcome, CRAFTUI" breadcrumb="Dashboard" />
 
+      {/* Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-xl shadow-md p-5 flex items-center gap-4">
-          <div className="bg-pink/10 p-4 rounded-full">
-            <FaShoppingCart className="text-pink text-2xl" />
+        {statCards.map((stat, idx) => (
+          <div key={idx} className="bg-white rounded-2xl shadow-sm p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className={`${stat.color} p-3 rounded-xl text-white`}>
+                <stat.icon className="text-xl" />
+              </div>
+              <span className="text-green-500 text-sm flex items-center gap-1">
+                <FaArrowUp className="text-xs" /> {stat.change}
+              </span>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-800">{stat.value}</h3>
+            <p className="text-gray-500 text-sm mt-1">{stat.title}</p>
           </div>
-          <div>
-            <p className="text-gray-500 text-sm">Total Orders</p>
-            <p className="text-2xl font-bold">{stats.totalOrders.toLocaleString()}</p>
-            <p className="text-green-500 text-xs flex items-center gap-1">
-              <FaArrowUp className="text-xs" /> {stats.monthlyGrowth.orders}% dari bulan lalu
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-md p-5 flex items-center gap-4">
-          <div className="bg-blue-100 p-4 rounded-full">
-            <FaUsers className="text-blue-500 text-2xl" />
-          </div>
-          <div>
-            <p className="text-gray-500 text-sm">Pelanggan</p>
-            <p className="text-2xl font-bold">{stats.totalCustomers.toLocaleString()}</p>
-            <p className="text-green-500 text-xs flex items-center gap-1">
-              <FaArrowUp className="text-xs" /> +{stats.monthlyGrowth.customers} bulan ini
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-md p-5 flex items-center gap-4">
-          <div className="bg-green-100 p-4 rounded-full">
-            <FaBoxOpen className="text-green-500 text-2xl" />
-          </div>
-          <div>
-            <p className="text-gray-500 text-sm">Total Stok</p>
-            <p className="text-2xl font-bold">{totalStock.toLocaleString()}</p>
-            <p className="text-gray-500 text-xs">{products.length} produk aktif</p>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-md p-5 flex items-center gap-4">
-          <div className="bg-yellow-100 p-4 rounded-full">
-            <FaDollarSign className="text-yellow-500 text-2xl" />
-          </div>
-          <div>
-            <p className="text-gray-500 text-sm">Total Revenue</p>
-            <p className="text-2xl font-bold">Rp {(stats.totalRevenue / 1000000).toFixed(1)}JT</p>
-            <p className="text-green-500 text-xs flex items-center gap-1">
-              <FaArrowUp className="text-xs" /> {stats.monthlyGrowth.revenue}% dari bulan lalu
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-xl shadow-md p-5">
-          <h3 className="font-semibold text-lg mb-3">📦 Ringkasan Stok</h3>
+        {/* Recent Orders */}
+        <div className="bg-white rounded-2xl shadow-sm p-6">
+          <h3 className="font-semibold text-lg mb-4">Recent Orders</h3>
           <div className="space-y-3">
-            <div className="flex justify-between border-b pb-2">
-              <span className="text-gray-500">Total Stok Keseluruhan</span>
-              <span className="font-bold text-lg">{totalStock} pcs</span>
-            </div>
-            <div className="flex justify-between border-b pb-2">
-              <span className="text-gray-500">Total Terjual</span>
-              <span className="font-bold text-green-600">{totalSold} pcs</span>
-            </div>
-            <div className="flex justify-between border-b pb-2">
-              <span className="text-gray-500">Stok Rata-rata per Produk</span>
-              <span className="font-bold">{(totalStock / products.length).toFixed(0)} pcs</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-500">Produk Stok Rendah (&lt;5)</span>
-              <span className={`font-bold ${lowStockCount > 0 ? 'text-orange-500' : 'text-green-500'}`}>
-                {lowStockCount} produk
-              </span>
-            </div>
+            {recentOrders.map((order) => (
+              <div key={order.id} className="flex items-center justify-between py-2 border-b">
+                <div>
+                  <p className="font-medium text-sm">{order.id}</p>
+                  <p className="text-xs text-gray-400">{order.customer}</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-semibold text-pink">Rp {order.total.toLocaleString()}</p>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${
+                    order.status === "Delivered" ? "bg-green-100 text-green-600" : "bg-yellow-100 text-yellow-600"
+                  }`}>
+                    {order.status}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md p-5">
-          <h3 className="font-semibold text-lg mb-3">🏆 Top 5 Produk Terlaris</h3>
+        {/* Top Products */}
+        <div className="bg-white rounded-2xl shadow-sm p-6">
+          <h3 className="font-semibold text-lg mb-4">Top Selling Products</h3>
           <div className="space-y-3">
-            {top5Products.map((product, idx) => (
-              <div key={product.id} className="flex justify-between items-center border-b pb-2">
+            {topProducts.map((product, idx) => (
+              <div key={product.id} className="flex items-center justify-between py-2 border-b">
                 <div className="flex items-center gap-3">
-                  <span className="font-bold text-pink w-6">{idx + 1}.</span>
+                  <span className="text-pink font-bold w-6">{idx + 1}.</span>
                   <span className="text-sm">{product.name}</span>
                 </div>
-                <div className="flex gap-4">
-                  <span className="text-gray-500 text-sm">{product.sold} terjual</span>
-                  <span className="font-semibold text-pink text-sm">
-                    Rp {(product.price * product.sold / 1000).toFixed(0)}K
-                  </span>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-500">{product.sold} sold</span>
+                  <span className="font-semibold text-pink">Rp {(product.price * product.sold / 1000).toFixed(0)}K</span>
                 </div>
               </div>
             ))}
@@ -136,20 +123,26 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-md p-5">
-        <h3 className="font-semibold text-lg mb-3">📊 Statistik Kategori Produk</h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          {['Kalung', 'Gelang', 'Anting', 'Cincin', 'Aksesoris Rambut', 'Bros'].map(category => {
-            const productsInCat = products.filter(p => p.category === category);
-            const totalSoldCat = productsInCat.reduce((sum, p) => sum + p.sold, 0);
-            return (
-              <div key={category} className="bg-gray-50 rounded-lg p-3 text-center">
-                <p className="text-xs text-gray-500">{category}</p>
-                <p className="font-bold text-pink">{productsInCat.length} produk</p>
-                <p className="text-xs text-gray-400">{totalSoldCat} terjual</p>
-              </div>
-            );
-          })}
+      {/* Inventory Summary */}
+      <div className="bg-white rounded-2xl shadow-sm p-6">
+        <h3 className="font-semibold text-lg mb-4">Inventory Summary</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="text-center p-4 bg-gray-50 rounded-xl">
+            <p className="text-2xl font-bold text-pink">{stats.totalStock}</p>
+            <p className="text-xs text-gray-500">Total Stock</p>
+          </div>
+          <div className="text-center p-4 bg-gray-50 rounded-xl">
+            <p className="text-2xl font-bold text-orange-500">{stats.lowStockCount}</p>
+            <p className="text-xs text-gray-500">Low Stock</p>
+          </div>
+          <div className="text-center p-4 bg-gray-50 rounded-xl">
+            <p className="text-2xl font-bold text-blue-500">{stats.totalProducts}</p>
+            <p className="text-xs text-gray-500">Categories</p>
+          </div>
+          <div className="text-center p-4 bg-gray-50 rounded-xl">
+            <p className="text-2xl font-bold text-green-500">{(stats.totalStock / stats.totalProducts).toFixed(0)}</p>
+            <p className="text-xs text-gray-500">Avg Stock/Product</p>
+          </div>
         </div>
       </div>
     </div>

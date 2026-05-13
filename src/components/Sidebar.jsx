@@ -1,47 +1,63 @@
 import { NavLink } from "react-router-dom";
-import { MdDashboard, MdShoppingCart, MdPeople, MdStore, MdCardGiftcard } from "react-icons/md";
+import { 
+  MdDashboard, 
+  MdShoppingCart, 
+  MdPeople, 
+  MdStore, 
+  MdCardGiftcard,
+  MdLogout
+} from "react-icons/md";
 
 export default function Sidebar() {
   const menuClass = ({ isActive }) =>
-    `flex cursor-pointer items-center rounded-xl p-4 space-x-3 transition-all ${
+    `flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200 ${
       isActive
-        ? "text-pink bg-pink/10 font-extrabold"
-        : "text-gray-600 hover:text-pink hover:bg-pink/10"
+        ? "bg-pink text-white shadow-md"
+        : "text-gray-600 hover:bg-pink/10 hover:text-pink"
     }`;
 
+  const menuItems = [
+    { path: "/", icon: MdDashboard, label: "Dashboard" },
+    { path: "/orders", icon: MdShoppingCart, label: "Orders" },
+    { path: "/customers", icon: MdPeople, label: "Customers" },
+    { path: "/products", icon: MdStore, label: "Products" },
+    { path: "/loyalty", icon: MdCardGiftcard, label: "Loyalty" },
+  ];
+
   return (
-    <div className="flex min-h-screen w-80 flex-col bg-white p-6 shadow-lg">
+    <div className="fixed left-0 top-0 h-screen w-72 bg-white shadow-xl flex flex-col">
       {/* Logo */}
-      <div className="flex flex-col mb-8">
-        <span className="font-poppins font-black text-[38px] text-gray-900">
-          Na_store<b className="text-pink">.</b>
-        </span>
-        <span className="font-semibold text-gray-400 text-sm">Accessories CRM</span>
+      <div className="p-6 border-b">
+        <div className="flex items-center gap-2">
+          <div className="w-10 h-10 bg-pink rounded-xl flex items-center justify-center">
+            <span className="text-white font-bold text-xl">N</span>
+          </div>
+          <div>
+            <h1 className="font-bold text-xl text-gray-800">Na_<span className="text-pink">store</span></h1>
+            <p className="text-xs text-gray-400">Accessories CRM</p>
+          </div>
+        </div>
       </div>
 
-      {/* Menu */}
-      <nav className="space-y-2 flex-1">
-        <NavLink to="/" className={menuClass}>
-          <MdDashboard className="text-xl" /> <span>Dashboard</span>
-        </NavLink>
-        <NavLink to="/orders" className={menuClass}>
-          <MdShoppingCart className="text-xl" /> <span>Orders</span>
-        </NavLink>
-        <NavLink to="/customers" className={menuClass}>
-          <MdPeople className="text-xl" /> <span>Customers</span>
-        </NavLink>
-        <NavLink to="/products" className={menuClass}>
-          <MdStore className="text-xl" /> <span>Products</span>
-        </NavLink>
-        <NavLink to="/loyalty" className={menuClass}>
-          <MdCardGiftcard className="text-xl" /> <span>Loyalty</span>
-        </NavLink>
+      {/* Navigation */}
+      <nav className="flex-1 p-4 space-y-2">
+        {menuItems.map((item) => (
+          <NavLink key={item.path} to={item.path} className={menuClass}>
+            <item.icon className="text-xl" />
+            <span className="font-medium">{item.label}</span>
+          </NavLink>
+        ))}
       </nav>
 
-      {/* Footer */}
-      <div className="mt-auto pt-6 border-t">
-        <p className="text-xs text-gray-400 text-center">© 2025 Na_store.id</p>
-        <p className="text-xs text-gray-400 text-center">All Rights Reserved</p>
+      {/* Logout Button */}
+      <div className="p-4 border-t">
+        <button className="flex items-center gap-3 w-full rounded-xl px-4 py-3 text-gray-600 hover:bg-red-50 hover:text-red-500 transition-all duration-200">
+          <MdLogout className="text-xl" />
+          <span className="font-medium">Logout</span>
+        </button>
+        <p className="text-xs text-center text-gray-400 mt-4">
+          © 2025 Na_store.id
+        </p>
       </div>
     </div>
   );

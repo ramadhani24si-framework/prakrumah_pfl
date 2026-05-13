@@ -4,12 +4,14 @@ import Header from "../components/Header";
 
 export default function MainLayout() {
   return (
-    <div className="bg-latar min-h-screen flex">
-      <div className="flex flex-row flex-1">
-        <Sidebar />
-        <div className="flex-1 p-4">
+    <div className="min-h-screen bg-gray-50">
+      <Sidebar />
+      <div className="ml-72">
+        <div className="p-6">
           <Header />
-          <Outlet />  {/* Ini tempat anak-anak route akan dirender */}
+          <main>
+            <Outlet />
+          </main>
         </div>
       </div>
     </div>
