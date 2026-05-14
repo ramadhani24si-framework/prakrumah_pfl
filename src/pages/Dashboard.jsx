@@ -48,7 +48,12 @@ export default function Dashboard() {
   };
 
   const recentOrders = orders.slice(0, 5);
-  const topProducts = [...products].sort((a, b) => b.sold - a.sold).slice(0, 5);
+  
+  // PERBAIKAN 1: pake .title (bukan .name)
+  // PERBAIKAN 2: karena ga punya field sold, pake random atau stock sebagai pengganti
+  const topProducts = [...products]
+    .sort((a, b) => (b.sold || b.stock) - (a.sold || a.stock))  // fallback ke stock
+    .slice(0, 5);
 
   const statCards = [
     { title: "Total Orders", value: stats.totalOrders, icon: FaShoppingCart, color: "bg-pink", change: "+12%" },
@@ -103,22 +108,28 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Top Products */}
+        {/* Top Products - PERBAIKAN DI SINI */}
         <div className="bg-white rounded-2xl shadow-sm p-6">
           <h3 className="font-semibold text-lg mb-4">Top Selling Products</h3>
           <div className="space-y-3">
-            {topProducts.map((product, idx) => (
-              <div key={product.id} className="flex items-center justify-between py-2 border-b">
-                <div className="flex items-center gap-3">
-                  <span className="text-pink font-bold w-6">{idx + 1}.</span>
-                  <span className="text-sm">{product.name}</span>
+            {topProducts.length === 0 ? (
+              <p className="text-gray-400 text-sm text-center py-4">Belum ada data produk</p>
+            ) : (
+              topProducts.map((product, idx) => (
+                <div key={product.id} className="flex items-center justify-between py-2 border-b">
+                  <div className="flex items-center gap-3">
+                    <span className="text-pink font-bold w-6">{idx + 1}.</span>
+                    {/* PERBAIKAN: pake product.title (bukan product.name) */}
+                    <span className="text-sm">{product.title}</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {/* PERBAIKAN: karena ga ada field sold, pake stock sebagai indikator */}
+                    <span className="text-sm text-gray-500">Stok: {product.stock} pcs</span>
+                    <span className="font-semibold text-pink">Rp {(product.price).toLocaleString()}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm text-gray-500">{product.sold} sold</span>
-                  <span className="font-semibold text-pink">Rp {(product.price * product.sold / 1000).toFixed(0)}K</span>
-                </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>
