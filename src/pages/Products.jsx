@@ -18,8 +18,9 @@ export default function Products() {
 
   const categories = ["all", ...new Set(products.map(p => p.category))];
 
+  // PERBAIKAN: gunakan p.title (bukan p.name)
   let filteredProducts = products.filter(p => 
-    p.name.toLowerCase().includes(search.toLowerCase()) ||
+    p.title.toLowerCase().includes(search.toLowerCase()) ||
     p.category.toLowerCase().includes(search.toLowerCase())
   );
 

@@ -59,7 +59,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <PageHeader title="Welcome, CRAFTUI" breadcrumb="Dashboard" />
+      <PageHeader title="Welcome, GIRL" breadcrumb="Dashboard" />
 
       {/* Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

@@ -9,6 +9,7 @@ const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 const Orders = React.lazy(() => import("./pages/Orders"));
 const Customers = React.lazy(() => import("./pages/Customers"));
 const Products = React.lazy(() => import("./pages/Products"));
+const ProductDetail = React.lazy(() => import("./pages/ProductDetail"));
 const Loyalty = React.lazy(() => import("./pages/Loyalty"));
 const SearchResults = React.lazy(() => import("./pages/SearchResults"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
@@ -20,18 +21,19 @@ export default function App() {
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
-        {/* MainLayout routes - dengan protected route nanti bisa ditambah auth check */}
+        {/* MainLayout routes */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/customers" element={<Customers />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/loyalty" element={<Loyalty />} />
           <Route path="/search" element={<SearchResults />} />
         </Route>
 
-        {/* AuthLayout routes - tanpa sidebar & header */}
+        {/* AuthLayout routes */}
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

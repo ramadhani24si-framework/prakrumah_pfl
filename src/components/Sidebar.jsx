@@ -34,7 +34,7 @@ export default function Sidebar() {
           </div>
           <div>
             <h1 className="font-bold text-xl text-gray-800">Na_<span className="text-pink">store</span></h1>
-            <p className="text-xs text-gray-400">Accessories CRM</p>
+            <p className="text-xs text-gray-400">Accessories </p>
           </div>
         </div>
       </div>
