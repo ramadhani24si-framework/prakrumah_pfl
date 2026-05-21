@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import PageHeader from "../components/PageHeader";
 import Table from "../components/data-display/Table";
-import Card from "../components/data-display/Card";
 import Button from "../components/basic/Button";
 import Badge from "../components/basic/Badge";
 import Input from "../components/form/Input";
 import Select from "../components/form/Select";
 import LoadingSpinner from "../components/feedback/LoadingSpinner";
-import { FaPlus, FaEye, FaSpinner } from "react-icons/fa";
+import { FaPlus, FaEye } from "react-icons/fa";
 import ordersData from "../data/orders.json";
 
 export default function Orders() {
@@ -76,7 +75,6 @@ export default function Orders() {
     <div>
       <PageHeader title="Orders" breadcrumb="Order Management" />
       
-      {/* Stat Cards */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
         <div className="bg-white rounded-xl shadow-sm p-3 text-center">
           <p className="text-2xl font-bold text-pink">{stats.total}</p>
@@ -100,7 +98,6 @@ export default function Orders() {
         </div>
       </div>
 
-      {/* Filter Section */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
           <Input 
@@ -122,7 +119,6 @@ export default function Orders() {
         </Button>
       </div>
 
-      {/* Table Component */}
       <Table headers={headers}>
         {filteredOrders.map((order) => (
           <tr key={order.id} className="border-t hover:bg-gray-50 transition">

@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import Table from "../components/data-display/Table";
+import ProductCard from "../components/data-display/ProductCard";
 import Button from "../components/basic/Button";
 import Badge from "../components/basic/Badge";
 import Input from "../components/form/Input";
-import Select from "../components/form/Select";
 import LoadingSpinner from "../components/feedback/LoadingSpinner";
-import Alert from "../components/feedback/Alert";
-import { FaSearch, FaBoxes, FaTag, FaSpinner } from "react-icons/fa";
+import { FaSearch, FaBoxes, FaTag, FaFilter } from "react-icons/fa";
 import productsData from "../data/products.json";
 
 export default function Products() {
@@ -16,8 +15,7 @@ export default function Products() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
+  const [viewMode, setViewMode] = useState("grid");
 
   useEffect(() => {
     setProducts(productsData.products);
@@ -42,12 +40,6 @@ export default function Products() {
 
   const headers = ["ID", "Nama Produk", "Kode", "Kategori", "Brand", "Harga", "Stok"];
 
-  const showSuccessAlert = (message) => {
-    setAlertMessage(message);
-    setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 3000);
-  };
-
   if (loading) {
     return <LoadingSpinner fullPage />;
   }
@@ -55,10 +47,6 @@ export default function Products() {
   return (
     <div>
       <PageHeader title="Katalog Produk" breadcrumb="Product Catalog" />
-      
-      {showAlert && (
-        <Alert type="success" message={alertMessage} onClose={() => setShowAlert(false)} />
-      )}
 
       {/* Stat Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -91,7 +79,6 @@ export default function Products() {
             placeholder="Cari produk..." 
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            icon="search"
           />
         </div>
         
@@ -107,45 +94,103 @@ export default function Products() {
             </Button>
           ))}
         </div>
-        
-        <Button 
-          type="outline" 
-          size="sm"
-          onClick={() => showSuccessAlert("Filter stok menipis diterapkan!")}
-        >
-          Stok Menipis
-        </Button>
+
+        {/* Toggle View Mode */}
+        <div className="flex gap-2">
+          <Button 
+            type={viewMode === "grid" ? "primary" : "outline"} 
+            size="sm"
+            onClick={() => setViewMode("grid")}
+          >
+            Grid
+          </Button>
+          <Button 
+            type={viewMode === "table" ? "primary" : "outline"} 
+            size="sm"
+            onClick={() => setViewMode("table")}
+          >
+            Tabel
+          </Button>
+        </div>
       </div>
 
-      {/* Table Component */}
-      <Table headers={headers}>
-        {filteredProducts.map((product) => (
-          <tr key={product.id} className="border-t hover:bg-gray-50 transition">
-            <td className="px-4 py-3 text-sm">{product.id}</td>
-            <td className="px-4 py-3 font-medium text-sm">
-              <Link to={`/products/${product.id}`} className="text-pink hover:text-pink/80">
-                {product.title}
-              </Link>
-            </td>
-            <td className="px-4 py-3 text-sm font-mono">{product.code}</td>
-            <td className="px-4 py-3 text-sm">
-              <Badge type="primary">{product.category}</Badge>
-            </td>
-            <td className="px-4 py-3 text-sm">{product.brand}</td>
-            <td className="px-4 py-3 text-sm font-semibold text-pink">Rp {product.price.toLocaleString()}</td>
-            <td className="px-4 py-3 text-sm">
-              <Badge type={product.stock < 5 ? "warning" : "default"}>
-                {product.stock}
-              </Badge>
-            </td>
-          </tr>
-        ))}
-      </Table>
+      {/* Hasil Filter */}
+      <div className="flex justify-between items-center mb-4">
+        <p className="text-sm text-gray-500">
+          Menampilkan {filteredProducts.length} dari {products.length} produk
+        </p>
+        {search && (
+          <button onClick={() => setSearch("")} className="text-sm text-pink hover:underline">
+            Hapus filter
+          </button>
+        )}
+      </div>
 
-      {filteredProducts.length === 0 && (
-        <div className="text-center py-10">
-          <p className="text-gray-500">Tidak ada produk yang ditemukan</p>
-        </div>
+      {/* View Mode: Grid dengan ProductCard */}
+      {viewMode === "grid" && (
+        filteredProducts.length === 0 ? (
+          <div className="text-center py-16 bg-white rounded-xl shadow-md">
+            <FaSearch className="text-6xl text-gray-300 mx-auto mb-4" />
+            <p className="text-gray-500 text-lg">Tidak ada produk yang cocok</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )
+      )}
+
+      {/* View Mode: Table */}
+      {viewMode === "table" && (
+        filteredProducts.length === 0 ? (
+          <div className="text-center py-16 bg-white rounded-xl shadow-md">
+            <FaSearch className="text-6xl text-gray-300 mx-auto mb-4" />
+            <p className="text-gray-500 text-lg">Tidak ada produk yang cocok</p>
+          </div>
+        ) : (
+          <div className="bg-white rounded-xl shadow-md overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[900px]">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="p-3 text-left text-sm font-semibold">ID</th>
+                    <th className="p-3 text-left text-sm font-semibold">Nama Produk</th>
+                    <th className="p-3 text-left text-sm font-semibold">Kode</th>
+                    <th className="p-3 text-left text-sm font-semibold">Kategori</th>
+                    <th className="p-3 text-left text-sm font-semibold">Brand</th>
+                    <th className="p-3 text-left text-sm font-semibold">Harga</th>
+                    <th className="p-3 text-left text-sm font-semibold">Stok</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredProducts.map((product) => (
+                    <tr key={product.id} className="border-t hover:bg-gray-50 transition">
+                      <td className="p-3 text-sm">{product.id}</td>
+                      <td className="p-3 font-medium text-sm">
+                        <Link to={`/products/${product.id}`} className="text-pink hover:text-pink/80">
+                          {product.title}
+                        </Link>
+                      </td>
+                      <td className="p-3 text-sm font-mono">{product.code}</td>
+                      <td className="p-3 text-sm">
+                        <Badge type="primary">{product.category}</Badge>
+                      </td>
+                      <td className="p-3 text-sm">{product.brand}</td>
+                      <td className="p-3 text-sm font-semibold text-pink">Rp {product.price.toLocaleString()}</td>
+                      <td className="p-3 text-sm">
+                        <Badge type={product.stock < 5 ? "warning" : "default"}>
+                          {product.stock}
+                        </Badge>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )
       )}
     </div>
   );

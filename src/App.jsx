@@ -12,7 +12,6 @@ const Products = React.lazy(() => import("./pages/Products"));
 const ProductDetail = React.lazy(() => import("./pages/ProductDetail"));
 const Loyalty = React.lazy(() => import("./pages/Loyalty"));
 const SearchResults = React.lazy(() => import("./pages/SearchResults"));
-const Components = React.lazy(() => import("./pages/Components"));  // ← TAMBAHKAN INI
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
@@ -32,7 +31,6 @@ export default function App() {
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/loyalty" element={<Loyalty />} />
           <Route path="/search" element={<SearchResults />} />
-       
         </Route>
 
         {/* AuthLayout routes */}

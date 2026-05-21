@@ -65,7 +65,6 @@ export default function Customers() {
         <Alert type="success" message="Pelanggan berhasil dihapus!" onClose={() => setShowAlert(false)} />
       )}
 
-      {/* Stat Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div className="bg-white rounded-xl shadow-sm p-3 text-center">
           <p className="text-2xl font-bold text-pink">{stats.total}</p>
@@ -85,7 +84,6 @@ export default function Customers() {
         </div>
       </div>
 
-      {/* Search & Add Button */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
           <Input 
@@ -99,7 +97,6 @@ export default function Customers() {
         </Button>
       </div>
 
-      {/* Table Component */}
       <Table headers={headers}>
         {filteredCustomers.map((customer) => (
           <tr key={customer.id} className="border-t hover:bg-gray-50 transition">
@@ -108,7 +105,7 @@ export default function Customers() {
                 <Avatar name={customer.name} size="sm" />
                 <span className="font-medium text-sm">{customer.name}</span>
               </div>
-            </td>
+             </td>
             <td className="px-4 py-3 text-sm">{customer.phone}</td>
             <td className="px-4 py-3 text-sm text-gray-500">{customer.email}</td>
             <td className="px-4 py-3 text-sm font-semibold text-pink">Rp {customer.totalSpent.toLocaleString()}</td>
@@ -143,7 +140,6 @@ export default function Customers() {
         </div>
       )}
 
-      {/* Modal Konfirmasi Hapus */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
