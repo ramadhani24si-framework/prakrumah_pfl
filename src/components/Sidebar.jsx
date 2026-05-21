@@ -5,7 +5,8 @@ import {
   MdPeople, 
   MdStore, 
   MdCardGiftcard,
-  MdLogout
+  MdLogout,
+  MdWidgets              // ← TAMBAHKAN Icon untuk Components
 } from "react-icons/md";
 
 export default function Sidebar() {
@@ -22,6 +23,7 @@ export default function Sidebar() {
     { path: "/customers", icon: MdPeople, label: "Customers" },
     { path: "/products", icon: MdStore, label: "Products" },
     { path: "/loyalty", icon: MdCardGiftcard, label: "Loyalty" },
+    
   ];
 
   return (
@@ -34,7 +36,7 @@ export default function Sidebar() {
           </div>
           <div>
             <h1 className="font-bold text-xl text-gray-800">Na_<span className="text-pink">store</span></h1>
-            <p className="text-xs text-gray-400">Accessories </p>
+            <p className="text-xs text-gray-400">Accessories</p>
           </div>
         </div>
       </div>

@@ -1,12 +1,23 @@
 import { useState, useEffect } from "react";
 import PageHeader from "../components/PageHeader";
-import { FaSearch, FaWhatsapp, FaStar, FaTrash, FaEnvelope, FaUserPlus, FaSpinner } from "react-icons/fa";
+import Table from "../components/data-display/Table";
+import Button from "../components/basic/Button";
+import Badge from "../components/basic/Badge";
+import Avatar from "../components/basic/Avatar";
+import Input from "../components/form/Input";
+import Modal from "../components/feedback/Modal";
+import LoadingSpinner from "../components/feedback/LoadingSpinner";
+import Alert from "../components/feedback/Alert";
+import { FaWhatsapp, FaEnvelope, FaTrash, FaUserPlus, FaStar } from "react-icons/fa";
 import customersData from "../data/customers.json";
 
 export default function Customers() {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
 
   useEffect(() => {
     setCustomers(customersData.customers);
@@ -19,9 +30,17 @@ export default function Customers() {
     c.email.toLowerCase().includes(search.toLowerCase())
   );
 
-  const deleteCustomer = (id) => {
-    if (window.confirm(`Hapus pelanggan ini?`)) {
-      setCustomers(customers.filter(c => c.id !== id));
+  const deleteCustomer = (id, name) => {
+    setSelectedCustomer({ id, name });
+    setIsModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (selectedCustomer) {
+      setCustomers(customers.filter(c => c.id !== selectedCustomer.id));
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+      setIsModalOpen(false);
     }
   };
 
@@ -32,22 +51,21 @@ export default function Customers() {
     avgOrder: customers.reduce((sum, c) => sum + c.orders, 0) / customers.length
   };
 
+  const headers = ["Nama", "No WhatsApp", "Email", "Total Belanja", "Order", "Poin", "Bergabung", "Aksi"];
+
   if (loading) {
-    return (
-      <div>
-        <PageHeader title="Data Pelanggan" breadcrumb="Customer Management" />
-        <div className="text-center py-16 bg-white rounded-xl shadow-md">
-          <FaSpinner className="text-4xl text-pink animate-spin mx-auto mb-4" />
-          <p className="text-gray-500">Memuat data pelanggan...</p>
-        </div>
-      </div>
-    );
+    return <LoadingSpinner fullPage />;
   }
 
   return (
     <div>
       <PageHeader title="Data Pelanggan" breadcrumb="Customer Management" />
       
+      {showAlert && (
+        <Alert type="success" message="Pelanggan berhasil dihapus!" onClose={() => setShowAlert(false)} />
+      )}
+
+      {/* Stat Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div className="bg-white rounded-xl shadow-sm p-3 text-center">
           <p className="text-2xl font-bold text-pink">{stats.total}</p>
@@ -67,80 +85,74 @@ export default function Customers() {
         </div>
       </div>
 
+      {/* Search & Add Button */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
-          <input 
-            type="text" 
+          <Input 
             placeholder="Cari nama, no HP, atau email..." 
-            className="w-full p-3 pl-10 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
         </div>
-        <button className="bg-pink text-white px-5 py-3 rounded-xl hover:bg-pink/80 transition flex items-center gap-2 shadow-md">
-          <FaUserPlus /> Tambah Pelanggan
-        </button>
+        <Button type="primary" onClick={() => alert("Fitur tambah pelanggan")}>
+          <FaUserPlus className="inline mr-2" /> Tambah Pelanggan
+        </Button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-md overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[900px]">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="p-3 text-left text-sm font-semibold">Nama</th>
-                <th className="p-3 text-left text-sm font-semibold">No WhatsApp</th>
-                <th className="p-3 text-left text-sm font-semibold">Email</th>
-                <th className="p-3 text-left text-sm font-semibold">Total Belanja</th>
-                <th className="p-3 text-left text-sm font-semibold">Order</th>
-                <th className="p-3 text-left text-sm font-semibold">Poin</th>
-                <th className="p-3 text-left text-sm font-semibold">Bergabung</th>
-                <th className="p-3 text-left text-sm font-semibold">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredCustomers.map((customer) => (
-                <tr key={customer.id} className="border-t hover:bg-gray-50 transition">
-                  <td className="p-3 font-medium text-sm">{customer.name}</td>
-                  <td className="p-3 text-sm">{customer.phone}</td>
-                  <td className="p-3 text-sm text-gray-500">{customer.email}</td>
-                  <td className="p-3 text-sm font-semibold text-pink">Rp {customer.totalSpent.toLocaleString()}</td>
-                  <td className="p-3 text-sm">{customer.orders}x</td>
-                  <td className="p-3">
-                    <span className="flex items-center gap-1 text-sm">
-                      <FaStar className="text-yellow-400 text-xs" />
-                      {customer.points}
-                    </span>
-                  </td>
-                  <td className="p-3 text-sm text-gray-500">{customer.joinDate}</td>
-                  <td className="p-3">
-                    <div className="flex gap-2">
-                      <a href={`https://wa.me/${customer.phone}`} target="_blank" rel="noopener noreferrer">
-                        <button className="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition text-xs">
-                          <FaWhatsapp />
-                        </button>
-                      </a>
-                      <a href={`mailto:${customer.email}`}>
-                        <button className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition text-xs">
-                          <FaEnvelope />
-                        </button>
-                      </a>
-                      <button onClick={() => deleteCustomer(customer.id)} className="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 transition text-xs">
-                        <FaTrash />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* Table Component */}
+      <Table headers={headers}>
+        {filteredCustomers.map((customer) => (
+          <tr key={customer.id} className="border-t hover:bg-gray-50 transition">
+            <td className="px-4 py-3">
+              <div className="flex items-center gap-3">
+                <Avatar name={customer.name} size="sm" />
+                <span className="font-medium text-sm">{customer.name}</span>
+              </div>
+            </td>
+            <td className="px-4 py-3 text-sm">{customer.phone}</td>
+            <td className="px-4 py-3 text-sm text-gray-500">{customer.email}</td>
+            <td className="px-4 py-3 text-sm font-semibold text-pink">Rp {customer.totalSpent.toLocaleString()}</td>
+            <td className="px-4 py-3 text-sm">{customer.orders}x</td>
+            <td className="px-4 py-3">
+              <Badge type="primary">
+                <FaStar className="inline text-yellow-400 mr-1 text-xs" />
+                {customer.points}
+              </Badge>
+            </td>
+            <td className="px-4 py-3 text-sm text-gray-500">{customer.joinDate}</td>
+            <td className="px-4 py-3">
+              <div className="flex gap-2">
+                <a href={`https://wa.me/${customer.phone}`} target="_blank" rel="noopener noreferrer">
+                  <Button type="success" size="sm"><FaWhatsapp /></Button>
+                </a>
+                <a href={`mailto:${customer.email}`}>
+                  <Button type="secondary" size="sm"><FaEnvelope /></Button>
+                </a>
+                <Button type="danger" size="sm" onClick={() => deleteCustomer(customer.id, customer.name)}>
+                  <FaTrash />
+                </Button>
+              </div>
+            </td>
+          </tr>
+        ))}
+      </Table>
+
+      {filteredCustomers.length === 0 && (
+        <div className="text-center py-10">
+          <p className="text-gray-500">Tidak ada pelanggan yang ditemukan</p>
         </div>
-        {filteredCustomers.length === 0 && (
-          <div className="text-center py-10">
-            <p className="text-gray-500">Tidak ada pelanggan yang ditemukan</p>
-          </div>
-        )}
-      </div>
+      )}
+
+      {/* Modal Konfirmasi Hapus */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Hapus Pelanggan"
+        onConfirm={confirmDelete}
+      >
+        <p>Apakah Anda yakin ingin menghapus <strong>{selectedCustomer?.name}</strong>?</p>
+        <p className="text-sm text-gray-500 mt-2">Tindakan ini tidak dapat dibatalkan.</p>
+      </Modal>
     </div>
   );
 }
