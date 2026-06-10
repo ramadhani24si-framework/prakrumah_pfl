@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { MdApps } from "react-icons/md";
 import { 
   MdDashboard, 
   MdShoppingCart, 
@@ -6,7 +7,6 @@ import {
   MdStore, 
   MdCardGiftcard,
   MdLogout,
-  MdWidgets              // ← TAMBAHKAN Icon untuk Components
 } from "react-icons/md";
 
 export default function Sidebar() {
@@ -23,6 +23,7 @@ export default function Sidebar() {
     { path: "/customers", icon: MdPeople, label: "Customers" },
     { path: "/products", icon: MdStore, label: "Products" },
     { path: "/loyalty", icon: MdCardGiftcard, label: "Loyalty" },
+    { path: "/fitur-shadcn", icon: MdApps, label: "Shadcn UI" },
     
   ];
 

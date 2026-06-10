@@ -16,6 +16,7 @@ const NotFound = React.lazy(() => import("./pages/NotFound"));
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
 const Forgot = React.lazy(() => import("./pages/auth/Forgot"));
+const FiturShadcn = React.lazy(() => import("./pages/FiturShadcn"));
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/loyalty" element={<Loyalty />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/fitur-shadcn" element={<FiturShadcn />} />
         </Route>
 
         {/* AuthLayout routes */}
