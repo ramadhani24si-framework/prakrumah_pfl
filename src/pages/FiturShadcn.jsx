@@ -18,17 +18,16 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-// Icon untuk tambahan aesthetic
+// Icon untuk tambahan aesthetic (FaSparkle sudah dihapus karena tidak tersedia)
 import { 
   FaGem, 
-  FaSparkle, 
+  FaStar,        // Ganti dari FaSparkle ke FaStar
   FaShoppingBag, 
   FaTruck, 
   FaShieldAlt, 
   FaWhatsapp, 
   FaInstagram,
-  FaRegHeart,
-  FaStar
+  FaRegHeart
 } from "react-icons/fa";
 
 export default function FiturShadcn() {
@@ -41,7 +40,7 @@ export default function FiturShadcn() {
       {/* Hero kecil untuk perkenalan */}
       <div className="bg-gradient-to-r from-pink/10 to-purple-100 rounded-2xl p-6 mb-8 text-center">
         <div className="inline-flex items-center gap-2 bg-white/80 rounded-full px-4 py-1 mb-3">
-          <FaSparkle className="text-pink" />
+          <FaStar className="text-pink" />  {/* Perbaikan: FaSparkle → FaStar */}
           <span className="text-sm font-medium text-pink">Powered by Shadcn UI</span>
         </div>
         <h1 className="text-2xl font-bold text-gray-800 mb-2">
@@ -281,7 +280,7 @@ export default function FiturShadcn() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2">
-                  <FaSparkle className="text-purple-500" /> Na_store Pro
+                  <FaStar className="text-purple-500" /> Na_store Pro  {/* Perbaikan: FaSparkle → FaStar */}
                 </CardTitle>
                 <Badge variant="secondary" className="bg-purple-100 text-purple-600">Premium</Badge>
               </div>

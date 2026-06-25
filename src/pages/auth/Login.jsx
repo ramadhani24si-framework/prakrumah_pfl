@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { ImSpinner2 } from "react-icons/im";
-import { BsFillExclamationDiamondFill } from "react-icons/bs";
+import { usersAPI } from "../../services/supabase";
+import Alert from "../../components/feedback/Alert";
+import LoadingSpinner from "../../components/feedback/LoadingSpinner";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -27,17 +27,17 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await axios.post("https://dummyjson.com/user/login", {
-        username: dataForm.email,
-        password: dataForm.password,
-      });
-      if (response.status === 200) {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data));
-        navigate("/");
+      const user = await usersAPI.loginUser(dataForm.email, dataForm.password);
+      
+      if (user) {
+        // Simpan data user ke localStorage
+        localStorage.setItem("user", JSON.stringify(user));
+        navigate("/dashboard");
+      } else {
+        setError("Email atau password salah!");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed. Please try again.");
+      setError(err.message || "Login gagal. Silakan coba lagi.");
     } finally {
       setLoading(false);
     }
@@ -46,23 +46,21 @@ export default function Login() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {error && (
-        <div className="bg-red-50 p-3 rounded-xl text-red-600 text-sm flex items-center gap-2">
-          <BsFillExclamationDiamondFill />
-          {error}
-        </div>
+        <Alert type="error" message={error} onClose={() => setError("")} />
       )}
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Email / Username
+          Email
         </label>
         <input
-          type="text"
+          type="email"
           name="email"
           value={dataForm.email}
           onChange={handleChange}
-          placeholder="Enter your email"
-          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink"
+          placeholder="Masukkan email"
+          disabled={loading}
+          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink disabled:opacity-50"
           required
         />
       </div>
@@ -76,19 +74,23 @@ export default function Login() {
           name="password"
           value={dataForm.password}
           onChange={handleChange}
-          placeholder="Enter your password"
-          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink"
+          placeholder="Masukkan password"
+          disabled={loading}
+          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink disabled:opacity-50"
           required
         />
       </div>
 
       <div className="flex items-center justify-between">
         <label className="flex items-center gap-2">
-          <input type="checkbox" className="rounded border-gray-300 text-pink focus:ring-pink" />
-          <span className="text-sm text-gray-600">Remember me</span>
+          <input 
+            type="checkbox" 
+            className="rounded border-gray-300 text-pink focus:ring-pink" 
+          />
+          <span className="text-sm text-gray-600">Ingat saya</span>
         </label>
         <Link to="/forgot" className="text-sm text-pink hover:underline">
-          Forgot Password?
+          Lupa Password?
         </Link>
       </div>
 
@@ -97,13 +99,13 @@ export default function Login() {
         disabled={loading}
         className="w-full bg-pink text-white py-3 rounded-xl font-semibold hover:bg-pink/80 transition disabled:opacity-50"
       >
-        {loading ? <ImSpinner2 className="animate-spin mx-auto" /> : "Sign In"}
+        {loading ? "Memproses..." : "Login"}
       </button>
 
       <p className="text-center text-sm text-gray-600">
-        Don't have an account?{" "}
+        Belum punya akun?{" "}
         <Link to="/register" className="text-pink font-semibold hover:underline">
-          Sign Up
+          Daftar di sini
         </Link>
       </p>
     </form>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import Table from "../components/data-display/Table";
@@ -17,6 +17,15 @@ export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [viewMode, setViewMode] = useState("grid");
 
+  // ========== useRef UNTUK FOKUS OTOMATIS KE INPUT ==========
+  const searchInputRef = useRef(null);
+
+  // ========== useEffect UNTUK FOKUS OTOMATIS SAAT HALAMAN DIMUAT ==========
+  useEffect(() => {
+    searchInputRef.current?.focus();
+  }, []);
+
+  // ========== useEffect UNTUK MENGAMBIL DATA PRODUK ==========
   useEffect(() => {
     setProducts(productsData.products);
     setLoading(false);
@@ -79,6 +88,7 @@ export default function Products() {
             placeholder="Cari produk..." 
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            ref={searchInputRef}   // ← REF DIPASANG KE INPUT
           />
         </div>
         

@@ -23,8 +23,8 @@ export default function Sidebar() {
     { path: "/customers", icon: MdPeople, label: "Customers" },
     { path: "/products", icon: MdStore, label: "Products" },
     { path: "/loyalty", icon: MdCardGiftcard, label: "Loyalty" },
+    { path: "/users", icon: MdPeople, label: "Users" },        // ← TAMBAHKAN
     { path: "/fitur-shadcn", icon: MdApps, label: "Shadcn UI" },
-    
   ];
 
   return (
@@ -54,7 +54,13 @@ export default function Sidebar() {
 
       {/* Logout Button */}
       <div className="p-4 border-t">
-        <button className="flex items-center gap-3 w-full rounded-xl px-4 py-3 text-gray-600 hover:bg-red-50 hover:text-red-500 transition-all duration-200">
+        <button 
+          className="flex items-center gap-3 w-full rounded-xl px-4 py-3 text-gray-600 hover:bg-red-50 hover:text-red-500 transition-all duration-200"
+          onClick={() => {
+            localStorage.removeItem("user");
+            window.location.href = "/login";
+          }}
+        >
           <MdLogout className="text-xl" />
           <span className="font-medium">Logout</span>
         </button>
