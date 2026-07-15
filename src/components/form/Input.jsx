@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-export default function Input({
+const Input = forwardRef(function Input({
   label,
   type = "text",
   placeholder,
   value,
   onChange,
   error,
-  required = false
-}) {
+  required = false,
+  name,
+  id,
+  ...props
+}, ref) {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
   const inputType = isPassword ? (showPassword ? "text" : "password") : type;
@@ -17,17 +20,21 @@ export default function Input({
   return (
     <div className="mb-4">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor={id || name} className="block text-sm font-medium text-gray-700 mb-1">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
       )}
       <div className="relative">
         <input
+          ref={ref}
+          id={id || name}
+          name={name}
           type={inputType}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
           className={`w-full px-4 py-2 border ${error ? 'border-red-500' : 'border-gray-200'} rounded-xl focus:outline-none focus:ring-2 focus:ring-pink focus:border-transparent`}
+          {...props}
         />
         {isPassword && (
           <button
@@ -42,4 +49,6 @@ export default function Input({
       {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </div>
   );
-}
+});
+
+export default Input;

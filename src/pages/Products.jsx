@@ -11,8 +11,8 @@ import { FaSearch, FaBoxes, FaTag, FaFilter } from "react-icons/fa";
 import productsData from "../data/products.json";
 
 export default function Products() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [products] = useState(() => productsData.products);
+  const [loading] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [viewMode, setViewMode] = useState("grid");
@@ -23,12 +23,6 @@ export default function Products() {
   // ========== useEffect UNTUK FOKUS OTOMATIS SAAT HALAMAN DIMUAT ==========
   useEffect(() => {
     searchInputRef.current?.focus();
-  }, []);
-
-  // ========== useEffect UNTUK MENGAMBIL DATA PRODUK ==========
-  useEffect(() => {
-    setProducts(productsData.products);
-    setLoading(false);
   }, []);
 
   const categories = ["all", ...new Set(products.map(p => p.category))];
@@ -46,8 +40,6 @@ export default function Products() {
   const totalStock = products.reduce((sum, p) => sum + p.stock, 0);
   const lowStockCount = products.filter(p => p.stock < 5).length;
   const totalValue = products.reduce((sum, p) => sum + (p.price * p.stock), 0);
-
-  const headers = ["ID", "Nama Produk", "Kode", "Kategori", "Brand", "Harga", "Stok"];
 
   if (loading) {
     return <LoadingSpinner fullPage />;

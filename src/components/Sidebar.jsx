@@ -18,12 +18,12 @@ export default function Sidebar() {
     }`;
 
   const menuItems = [
-    { path: "/", icon: MdDashboard, label: "Dashboard" },
+    { path: "/dashboard", icon: MdDashboard, label: "Dashboard" },
     { path: "/orders", icon: MdShoppingCart, label: "Orders" },
     { path: "/customers", icon: MdPeople, label: "Customers" },
     { path: "/products", icon: MdStore, label: "Products" },
     { path: "/loyalty", icon: MdCardGiftcard, label: "Loyalty" },
-    { path: "/users", icon: MdPeople, label: "Users" },        // ← TAMBAHKAN
+    { path: "/users", icon: MdPeople, label: "Users" },
     { path: "/fitur-shadcn", icon: MdApps, label: "Shadcn UI" },
   ];
 

@@ -27,29 +27,28 @@ export default function Users() {
     role: "user"
   });
 
-  // Load users
-  const loadUsers = async () => {
-    try {
-      setLoading(true);
-      const data = await usersAPI.fetchUsers();
-      setUsers(data);
-    } catch (err) {
-      showAlertMessage("Gagal memuat data user", "error");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadUsers();
-  }, []);
-
   const showAlertMessage = (message, type = "success") => {
     setAlertMessage(message);
     setAlertType(type);
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 3000);
   };
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      try {
+        setLoading(true);
+        const data = await usersAPI.fetchUsers();
+        setUsers(data);
+      } catch {
+        showAlertMessage("Gagal memuat data user", "error");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUsers();
+  }, []);
 
   const filteredUsers = users.filter(user =>
     user.name?.toLowerCase().includes(search.toLowerCase()) ||
@@ -95,7 +94,7 @@ export default function Users() {
       }
       
       setIsModalOpen(false);
-      loadUsers();
+      await usersAPI.fetchUsers().then(setUsers);
     } catch (err) {
       showAlertMessage(err.message || "Terjadi kesalahan", "error");
     } finally {
@@ -110,7 +109,8 @@ export default function Users() {
       setLoading(true);
       await usersAPI.deleteUser(id);
       showAlertMessage("User berhasil dihapus!");
-      loadUsers();
+      const data = await usersAPI.fetchUsers();
+      setUsers(data);
     } catch (err) {
       showAlertMessage(err.message || "Gagal menghapus user", "error");
     } finally {

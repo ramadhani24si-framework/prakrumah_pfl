@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { 
   FaArrowLeft, 
@@ -18,6 +18,7 @@ import productsData from "../data/products.json";
 
 export default function ProductDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
@@ -44,6 +45,12 @@ export default function ProductDetail() {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
+  };
+
+  const handleBuyNow = () => {
+    if (!product || product.stock === 0) return;
+    alert(`Produk ${product.title} berhasil ditambahkan ke keranjang (${quantity} pcs)`);
+    navigate('/orders');
   };
 
   // Generate gambar otomatis berdasarkan kategori produk
@@ -80,7 +87,14 @@ export default function ProductDetail() {
       "Aksesoris Rambut": "https://images.unsplash.com/photo-1532667449560-72a95c8d381b?w=100",
       "Bros": "https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=100"
     };
-    return categoryThumbs[category] || `https://dummyjson.com/image/100x100/ec4899/ffffff?text=${encodeURIComponent(title.substring(0, 5))}`;
+
+    if (categoryThumbs[category]) {
+      return categoryThumbs[category];
+    }
+
+    const colors = ['ec4899', 'fbbf24', '3b82f6', '10b981', '8b5cf6', 'ef4444'];
+    const color = colors[id % colors.length];
+    return `https://dummyjson.com/image/100x100/${color}/ffffff?text=${encodeURIComponent(title.substring(0, 5))}`;
   };
 
   // Format harga ke Rupiah
@@ -196,7 +210,7 @@ export default function ProductDetail() {
               </div>
               <span className="text-gray-500 text-sm">({(3.5 + (product.id % 15) / 10).toFixed(1)} dari 5)</span>
               <span className="text-gray-400">|</span>
-              <span className="text-gray-500 text-sm">Terjual {Math.floor(Math.random() * 100) + 20}+</span>
+              <span className="text-gray-500 text-sm">Terjual {20 + (product.id % 80)}+</span>
             </div>
 
             {/* Price */}
@@ -248,6 +262,7 @@ export default function ProductDetail() {
             <div className="flex flex-col sm:flex-row gap-3 mb-6">
               <button 
                 disabled={product.stock === 0}
+                onClick={handleBuyNow}
                 className={`flex-1 py-3 rounded-xl font-semibold transition flex items-center justify-center gap-2 ${
                   product.stock > 0 
                     ? 'bg-pink text-white hover:bg-pink/80' 

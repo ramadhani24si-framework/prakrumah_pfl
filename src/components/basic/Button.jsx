@@ -1,11 +1,12 @@
 export default function Button({ 
   children, 
-  type = "primary", 
+  type: variant = "primary", 
   size = "md",
   fullWidth = false,
   disabled = false,
   onClick,
-  className = ""
+  className = "",
+  buttonType = "button"
 }) {
   const types = {
     primary: "bg-pink hover:bg-pink/80 text-white",
@@ -23,7 +24,8 @@ export default function Button({
 
   return (
     <button
-      className={`${types[type]} ${sizes[size]} ${fullWidth ? 'w-full' : ''} font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+      type={buttonType}
+      className={`${types[variant]} ${sizes[size]} ${fullWidth ? 'w-full' : ''} font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
       disabled={disabled}
       onClick={onClick}
     >

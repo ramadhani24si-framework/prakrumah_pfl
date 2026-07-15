@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import Table from "../components/data-display/Table";
 import Button from "../components/basic/Button";
@@ -8,39 +8,110 @@ import Input from "../components/form/Input";
 import Modal from "../components/feedback/Modal";
 import LoadingSpinner from "../components/feedback/LoadingSpinner";
 import Alert from "../components/feedback/Alert";
-import { FaWhatsapp, FaEnvelope, FaTrash, FaUserPlus, FaStar } from "react-icons/fa";
+import { FaWhatsapp, FaEnvelope, FaTrash, FaUserPlus, FaStar, FaEdit } from "react-icons/fa";
 import customersData from "../data/customers.json";
 
+const emptyCustomer = {
+  name: "",
+  phone: "",
+  email: "",
+  totalSpent: 0,
+  orders: 0,
+  points: 0,
+  joinDate: new Date().toISOString().slice(0, 10),
+};
+
 export default function Customers() {
-  const [customers, setCustomers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [customers, setCustomers] = useState(() => customersData.customers);
+  const [loading] = useState(false);
   const [search, setSearch] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [formData, setFormData] = useState(emptyCustomer);
+  const [editingId, setEditingId] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
-  useEffect(() => {
-    setCustomers(customersData.customers);
-    setLoading(false);
-  }, []);
-
-  const filteredCustomers = customers.filter(c => 
-    c.name.toLowerCase().includes(search.toLowerCase()) || 
+  const filteredCustomers = customers.filter((c) =>
+    c.name.toLowerCase().includes(search.toLowerCase()) ||
     c.phone.includes(search) ||
     c.email.toLowerCase().includes(search.toLowerCase())
   );
 
+  const openCreateModal = () => {
+    setEditingId(null);
+    setSelectedCustomer(null);
+    setFormData(emptyCustomer);
+    setIsFormModalOpen(true);
+  };
+
+  const openEditModal = (customer) => {
+    setEditingId(customer.id);
+    setSelectedCustomer(customer);
+    setFormData({
+      name: customer.name,
+      phone: customer.phone,
+      email: customer.email,
+      totalSpent: customer.totalSpent,
+      orders: customer.orders,
+      points: customer.points,
+      joinDate: customer.joinDate,
+    });
+    setIsFormModalOpen(true);
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    const numericFields = ["totalSpent", "orders", "points"];
+    setFormData((prev) => ({
+      ...prev,
+      [name]: numericFields.includes(name) ? Number(value || 0) : value,
+    }));
+  };
+
+  const handleFormSubmit = (e) => {
+    if (e?.preventDefault) e.preventDefault();
+
+    if (!formData.name || !formData.phone || !formData.email) {
+      setAlertMessage("Nama, nomor HP, dan email wajib diisi.");
+      setShowAlert(true);
+      return;
+    }
+
+    if (editingId !== null) {
+      setCustomers((prev) =>
+        prev.map((customer) =>
+          customer.id === editingId ? { ...customer, ...formData, id: editingId } : customer
+        )
+      );
+      setAlertMessage("Pelanggan berhasil diperbarui.");
+    } else {
+      const newCustomer = {
+        ...formData,
+        id: Date.now(),
+      };
+      setCustomers((prev) => [newCustomer, ...prev]);
+      setAlertMessage("Pelanggan baru berhasil ditambahkan.");
+    }
+
+    setShowAlert(true);
+    setIsFormModalOpen(false);
+    setTimeout(() => setShowAlert(false), 2800);
+  };
+
   const deleteCustomer = (id, name) => {
     setSelectedCustomer({ id, name });
-    setIsModalOpen(true);
+    setIsDeleteModalOpen(true);
   };
 
   const confirmDelete = () => {
     if (selectedCustomer) {
-      setCustomers(customers.filter(c => c.id !== selectedCustomer.id));
+      setCustomers((prev) => prev.filter((c) => c.id !== selectedCustomer.id));
+      setAlertMessage("Pelanggan berhasil dihapus!");
       setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 3000);
-      setIsModalOpen(false);
+      setTimeout(() => setShowAlert(false), 2800);
+      setIsDeleteModalOpen(false);
     }
   };
 
@@ -48,7 +119,7 @@ export default function Customers() {
     total: customers.length,
     totalSpent: customers.reduce((sum, c) => sum + c.totalSpent, 0),
     totalPoints: customers.reduce((sum, c) => sum + c.points, 0),
-    avgOrder: customers.reduce((sum, c) => sum + c.orders, 0) / customers.length
+    avgOrder: customers.reduce((sum, c) => sum + c.orders, 0) / customers.length,
   };
 
   const headers = ["Nama", "No WhatsApp", "Email", "Total Belanja", "Order", "Poin", "Bergabung", "Aksi"];
@@ -60,9 +131,9 @@ export default function Customers() {
   return (
     <div>
       <PageHeader title="Data Pelanggan" breadcrumb="Customer Management" />
-      
+
       {showAlert && (
-        <Alert type="success" message="Pelanggan berhasil dihapus!" onClose={() => setShowAlert(false)} />
+        <Alert type="success" message={alertMessage} onClose={() => setShowAlert(false)} />
       )}
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -86,13 +157,13 @@ export default function Customers() {
 
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <div className="relative flex-1">
-          <Input 
-            placeholder="Cari nama, no HP, atau email..." 
+          <Input
+            placeholder="Cari nama, no HP, atau email..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <Button type="primary" onClick={() => alert("Fitur tambah pelanggan")}>
+        <Button type="primary" onClick={openCreateModal}>
           <FaUserPlus className="inline mr-2" /> Tambah Pelanggan
         </Button>
       </div>
@@ -105,7 +176,7 @@ export default function Customers() {
                 <Avatar name={customer.name} size="sm" />
                 <span className="font-medium text-sm">{customer.name}</span>
               </div>
-             </td>
+            </td>
             <td className="px-4 py-3 text-sm">{customer.phone}</td>
             <td className="px-4 py-3 text-sm text-gray-500">{customer.email}</td>
             <td className="px-4 py-3 text-sm font-semibold text-pink">Rp {customer.totalSpent.toLocaleString()}</td>
@@ -119,6 +190,9 @@ export default function Customers() {
             <td className="px-4 py-3 text-sm text-gray-500">{customer.joinDate}</td>
             <td className="px-4 py-3">
               <div className="flex gap-2">
+                <Button type="secondary" size="sm" onClick={() => openEditModal(customer)}>
+                  <FaEdit />
+                </Button>
                 <a href={`https://wa.me/${customer.phone}`} target="_blank" rel="noopener noreferrer">
                   <Button type="success" size="sm"><FaWhatsapp /></Button>
                 </a>
@@ -141,8 +215,25 @@ export default function Customers() {
       )}
 
       <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isFormModalOpen}
+        onClose={() => setIsFormModalOpen(false)}
+        title={editingId !== null ? "Edit Pelanggan" : "Tambah Pelanggan"}
+        onConfirm={handleFormSubmit}
+      >
+        <form className="space-y-3" onSubmit={handleFormSubmit}>
+          <Input label="Nama" name="name" value={formData.name} onChange={handleFormChange} />
+          <Input label="Nomor HP" name="phone" value={formData.phone} onChange={handleFormChange} />
+          <Input label="Email" name="email" type="email" value={formData.email} onChange={handleFormChange} />
+          <Input label="Total Belanja" name="totalSpent" type="number" value={formData.totalSpent} onChange={handleFormChange} />
+          <Input label="Jumlah Order" name="orders" type="number" value={formData.orders} onChange={handleFormChange} />
+          <Input label="Poin" name="points" type="number" value={formData.points} onChange={handleFormChange} />
+          <Input label="Tanggal Bergabung" name="joinDate" type="date" value={formData.joinDate} onChange={handleFormChange} />
+        </form>
+      </Modal>
+
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
         title="Hapus Pelanggan"
         onConfirm={confirmDelete}
       >

@@ -1,20 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PageHeader from "../components/PageHeader";
+import Alert from "../components/feedback/Alert";
+import Button from "../components/basic/Button";
 import { FaGift, FaStar, FaTrophy, FaHistory, FaSpinner } from "react-icons/fa";
 import customersData from "../data/customers.json";
 
 export default function Loyalty() {
-  const [customers, setCustomers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    setCustomers(customersData.customers);
-    setLoading(false);
-  }, []);
-  
+  const [customers, setCustomers] = useState(() => customersData.customers);
+  const [loading] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("success");
+
   const totalPoints = customers.reduce((sum, c) => sum + c.points, 0);
   const topCustomer = [...customers].sort((a, b) => b.points - a.points)[0];
-  
+
   const rewards = [
     { id: 1, name: "Potongan Rp 5.000", points: 500, image: "🎁", popular: true },
     { id: 2, name: "Free Ongkir", points: 750, image: "🚚", popular: false },
@@ -22,6 +22,29 @@ export default function Loyalty() {
     { id: 4, name: "Diskon 10%", points: 1500, image: "🏷️", popular: false },
     { id: 5, name: "Hadiah Spesial", points: 2000, image: "🎉", popular: false },
   ];
+
+  const redeemReward = (reward) => {
+    if (!topCustomer) return;
+
+    if (topCustomer.points < reward.points) {
+      setAlertType("danger");
+      setAlertMessage(`Poin ${topCustomer.name} belum cukup untuk menukarkan ${reward.name}.`);
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 2800);
+      return;
+    }
+
+    setCustomers((prev) =>
+      prev.map((customer) =>
+        customer.id === topCustomer.id ? { ...customer, points: customer.points - reward.points } : customer
+      )
+    );
+
+    setAlertType("success");
+    setAlertMessage(`${reward.name} berhasil ditukar oleh ${topCustomer.name}.`);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 2800);
+  };
 
   if (loading) {
     return (
@@ -38,7 +61,11 @@ export default function Loyalty() {
   return (
     <div>
       <PageHeader title="Program Poin" breadcrumb="Loyalty Management" />
-      
+
+      {showAlert && (
+        <Alert type={alertType} message={alertMessage} onClose={() => setShowAlert(false)} />
+      )}
+
       <div className="bg-gradient-to-r from-pink to-pink/70 text-white rounded-2xl p-6 mb-6">
         <div className="flex justify-between items-center flex-wrap gap-4">
           <div>
@@ -76,7 +103,7 @@ export default function Loyalty() {
               <span className="font-bold">12 Bulan</span>
             </div>
           </div>
-          
+
           <div className="mt-6 pt-4 border-t">
             <h4 className="text-sm font-semibold flex items-center gap-2 mb-3">
               <FaTrophy className="text-yellow-500" /> Customer dengan Poin Tertinggi
@@ -114,14 +141,14 @@ export default function Loyalty() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-yellow-500 font-bold text-sm">{reward.points} Poin</span>
-                  <button className="bg-pink text-white px-3 py-1.5 rounded-lg text-xs hover:bg-pink/80 transition">
+                  <Button type="primary" size="sm" onClick={() => redeemReward(reward)}>
                     Tukar
-                  </button>
+                  </Button>
                 </div>
               </div>
             ))}
           </div>
-          
+
           <div className="mt-6 pt-4 border-t">
             <h4 className="text-sm font-semibold flex items-center gap-2 mb-3">
               <FaHistory className="text-gray-400" /> Cara Mendapatkan Poin
